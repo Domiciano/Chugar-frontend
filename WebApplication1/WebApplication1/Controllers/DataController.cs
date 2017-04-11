@@ -10,7 +10,6 @@ namespace WebApplication1.Controllers
 {
     public class DataController : Controller
     {
-
         //URLS DE USUARIOS
         //string url = "http://testingcac.azurewebsites.net/api/services/v1/user/";
         string urlUser = "http://192.168.160.98:10090/api/services/v1/user/";
@@ -22,6 +21,7 @@ namespace WebApplication1.Controllers
             return Content("Chugar");
         }
 
+        //LIST
         [HttpGet]
         public ActionResult getUsuariosList()
         {
@@ -50,6 +50,7 @@ namespace WebApplication1.Controllers
             return Content(response);
         }
 
+        //ADD
         [HttpPost]
         public ActionResult crearUsuario()
         {
@@ -91,7 +92,7 @@ namespace WebApplication1.Controllers
             return Content(response);
         }
 
-
+        //LISTROLE
         [HttpGet]
         public ActionResult getRolesList()
         {
@@ -119,10 +120,10 @@ namespace WebApplication1.Controllers
             return Content(response);
         }
 
+        //LISTORGANIZATION
         [HttpGet]
         public ActionResult getEmpresasList()
         {
-
             var response = "";
             try
             {
@@ -174,6 +175,7 @@ namespace WebApplication1.Controllers
             return Content(response);
         }
 
+        //VALIDATOR2
         [HttpPost]
         public JsonResult UploadFile(HttpPostedFileBase file = null)
         {
@@ -222,6 +224,37 @@ namespace WebApplication1.Controllers
             }
             return Json(response);
         }
-        
+
+
+        //LISTBYUSER
+        [HttpGet]
+        public ActionResult getArchivosLista()
+        {
+            var userId = Request["user_id"];
+            var response = "";
+            try
+            {
+
+                HttpWebRequest myRequest =
+                    (HttpWebRequest)WebRequest.Create("http://testingcac.azurewebsites.net/api/services/v1/fake/listfilebyuser/1"+userId);
+
+                myRequest.Method = "GET";
+                myRequest.ContentType = "application/x-www-form-urlencoded";
+
+                HttpWebResponse webresponse = (HttpWebResponse)myRequest.GetResponse();
+                using (var streamReader = new StreamReader(webresponse.GetResponseStream()))
+                {
+                    response = streamReader.ReadToEnd();
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+
+            return Content(response);
+        }
+
+
     }
 }
