@@ -63,12 +63,12 @@
                 </div>
                 <div class="body">
                     <div class="view">
-							<h4>A continuación se listan sus archivos de cuenta de alto costo</h4>
+							<h4 id="mensaje">Cargando...</h4>
 							<div class="table-container">
 								<table class="errors-table" >
                                     <thead>
                                         <tr>
-                                            <th>Id</th>                                            
+                                            <th>Nombre</th>                                            
                                             <th>Filas Importadas</th>
                                             <th>Fecha de creación</th>
                                             <th>Tamaño</th>                                            
@@ -77,7 +77,7 @@
                                     </thead>
 
                                     <tbody id="tabla-archivos">
-                                        <tr><td>No se encontraron archivos</td></tr>
+                                        
                                     </tbody>
 								</table>
 							</div>
@@ -100,21 +100,40 @@
 <script type="text/javascript">
     $(document).ready(init);
     function init() {
-
+        localStorage.removeItem('cedula');
+        localStorage.removeItem('file-id');
         //ESPACIO PARA INTRODUCIR EL ID DE USUARIO
         var user_id = "1";
+
+        $("#view-file").click(viewFile);
 
         $.ajax({
             url: "/Data/getArchivosLista",
             type: "GET",
             data: { "user_id": user_id }
         }).done(function (respuesta) {
+            $("#mensaje").text("A continuación se listan sus archivos de cuenta de alto costo");
             var json = JSON.parse(respuesta);
             console.log(json);
             $("#tabla-archivos").empty();
-            for (var i = 0 ; i < json.length ; i++){
-                $("#tabla-archivos").append("<tr><td>" + json[i].Id + "</td><td>" + json[i].NumFilasImportadas + "</td><td>" + json[i].FechaCreacion + "</td><td>" + (json[i].Tamano / 1000) + " KB</td><td><a href='" + json[i].UrlArchivo + "'>DESCARGAR<a></td></tr>");
+            if (json.length > 0) {
+                for (var i = 0 ; i < json.length ; i++) {
+                    var html_fila = "<tr><td><center><a href='#' id='" + json[i].Id + "'><img src='images/excel.png' height='32' width='32'/></a></center><p><center><b>" + json[i].Nombre + "</b></center></p></td><td>" + json[i].NumFilasImportadas + "</td><td>" + json[i].FechaCreacion + "</td><td>" + (json[i].Tamano / 1000) + " KB</td><td><a href='" + json[i].UrlArchivo + "'>DESCARGAR<a></td></tr>";
+                    $("#tabla-archivos").append(html_fila);
+                    $("#" + json[i].Id).click(viewFile);
+                }
+            }else{
+                $("#tabla-archivos").append("<tr><td>No se encontraron archivos</td><td></td><td></td><td></td><td></td></tr>");
             }
+            
         });
+
+        function viewFile(e) {
+            e.preventDefault();
+            var id = $(this).attr('id');
+            localStorage.setItem('file-id', id);            
+            $(location).attr("href","lista-prioritarios.html");
+        }
+
     }
 </script>

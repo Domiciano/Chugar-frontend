@@ -1,3 +1,13 @@
+$("#cancelar").click(function (e) {
+    e.preventDefault();
+    $(".content").html(waitloadingGif);
+    $.ajax({
+        type: "GET",
+        url: "/Admin/GestionUsuarios"
+    }).done(function (html) {
+        $(".content").html(html);
+    });
+});
 //var url = 'http://testingcac.azurewebsites.net/api/services/v1/user/';
 
 //var org = "[{\"Direccion\":\"Pance\",\"EPS\":true,\"Id\":\"608c295c-efb0-11e6-bc64-92361f002671\",\"NIT\":\"984530\",\"Nombre\":\"Universidad Icesi1\",\"NumeroTelefonico\":null},{\"Direccion\":\"Pance\",\"EPS\":true,\"Id\":\"608c295c-efb0-11e6-bc64-92361f002671\",\"NIT\":\"984530\",\"Nombre\":\"Universidad Icesi\",\"NumeroTelefonico\":null}]";

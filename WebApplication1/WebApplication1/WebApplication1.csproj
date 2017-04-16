@@ -138,7 +138,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="detalle-prioritarios.html" />
+    <Content Include="images\excel.png" />
+    <Content Include="images\loader.gif" />
+    <Content Include="js\archivos.js" />
     <Content Include="lista-archivos.html" />
+    <Content Include="lista-prioritarios.html" />
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -148,6 +153,18 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\web.config" />
     <Content Include="scripts\jquery-1.10.2.min.map" />
+    <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Admin\CargarArchivos.cshtml" />
+    <Content Include="Views\Admin\Archivos.cshtml" />
+    <Content Include="Views\Admin\GestionUsuarios.cshtml" />
+    <Content Include="Views\Admin\CargaSatisfactoria.cshtml" />
+    <Content Include="Views\Admin\AsignarDatosArchivo.cshtml" />
+    <Content Include="Views\Admin\ListaPrioritarios.cshtml" />
+    <Content Include="Views\Admin\DetallePrioritarios.cshtml" />
+    <Content Include="Views\Admin\CrearUsuario.cshtml" />
+    <Content Include="Views\Login\RecuperarPassword.cshtml" />
+    <Content Include="Views\IPS\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -171,7 +188,6 @@
     <Content Include="gestion-de-usuarios.html" />
     <Content Include="Global.asax" />
     <Content Include="images\happy-face.png" />
-    <Content Include="index.html" />
     <Content Include="js\bootstrap.min.js" />
     <Content Include="js\carga-de-archivos.js" />
     <Content Include="js\crear-usuario.js" />
@@ -206,7 +222,10 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\DataController.cs" />
+    <Compile Include="Controllers\IPSController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -216,6 +235,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
     <Folder Include="Views\Data\" />
+    <Folder Include="Views\Fragments\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

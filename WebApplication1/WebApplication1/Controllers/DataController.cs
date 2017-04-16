@@ -11,7 +11,7 @@ namespace WebApplication1.Controllers
     public class DataController : Controller
     {
         //URLS DE USUARIOS
-        //string url = "http://testingcac.azurewebsites.net/api/services/v1/user/";
+        string url = "http://testingcac.azurewebsites.net/api/services/v1/fake/";
         string urlUser = "http://192.168.160.98:10090/api/services/v1/user/";
         
 
@@ -21,17 +21,48 @@ namespace WebApplication1.Controllers
             return Content("Chugar");
         }
 
+
+
+        //ADD
+        [HttpPost]
+        public ActionResult getUsuarioPorCorreo()
+        {
+            string correo = Request["correo"];
+            var response = "";
+            try
+            {
+                HttpWebRequest myRequest = (HttpWebRequest)WebRequest.Create("http://testingcac.azurewebsites.net/api/services/v1/fake/getbyemail/" + correo);
+
+                myRequest.Method = "GET";
+                myRequest.ContentType = "application/json";
+
+         
+                var webresponse = (HttpWebResponse)myRequest.GetResponse();
+                using (var streamReader = new StreamReader(webresponse.GetResponseStream()))
+                {
+                    response = streamReader.ReadToEnd();
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+
+            return Content(response);
+        }
+
+
+
         //LIST
         [HttpGet]
         public ActionResult getUsuariosList()
         {
-
             var response = "";
             try
             {
 
                 HttpWebRequest myRequest =
-                    (HttpWebRequest)WebRequest.Create(urlUser + "list");
+                    (HttpWebRequest)WebRequest.Create(url + "list");
 
                 myRequest.Method = "GET";
                 myRequest.ContentType = "application/x-www-form-urlencoded";
@@ -58,7 +89,7 @@ namespace WebApplication1.Controllers
             var response = "";
             try
             {
-                HttpWebRequest myRequest = (HttpWebRequest)WebRequest.Create(urlUser + "add");
+                HttpWebRequest myRequest = (HttpWebRequest)WebRequest.Create(url + "add");
 
                 myRequest.Method = "POST";
                 myRequest.ContentType = "application/json";
@@ -101,7 +132,7 @@ namespace WebApplication1.Controllers
             try
             {
                 HttpWebRequest myRequest =
-                    (HttpWebRequest)WebRequest.Create(urlUser + "listrole");
+                    (HttpWebRequest)WebRequest.Create(url + "listrole");
 
                 myRequest.Method = "GET";
                 myRequest.ContentType = "application/x-www-form-urlencoded";
@@ -128,7 +159,7 @@ namespace WebApplication1.Controllers
             try
             {
                 HttpWebRequest myRequest =
-                    (HttpWebRequest)WebRequest.Create(urlUser + "listorganization");
+                    (HttpWebRequest)WebRequest.Create(url + "listorganization");
 
                 myRequest.Method = "GET";
                 myRequest.ContentType = "application/x-www-form-urlencoded";
@@ -236,7 +267,38 @@ namespace WebApplication1.Controllers
             {
 
                 HttpWebRequest myRequest =
-                    (HttpWebRequest)WebRequest.Create("http://testingcac.azurewebsites.net/api/services/v1/fake/listfilebyuser/1"+userId);
+                    (HttpWebRequest)WebRequest.Create("http://testingcac.azurewebsites.net/api/services/v1/fake/listfilebyuser/"+userId);
+
+                myRequest.Method = "GET";
+                myRequest.ContentType = "application/x-www-form-urlencoded";
+
+                HttpWebResponse webresponse = (HttpWebResponse)myRequest.GetResponse();
+                using (var streamReader = new StreamReader(webresponse.GetResponseStream()))
+                {
+                    response = streamReader.ReadToEnd();
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+
+            return Content(response);
+        }
+
+
+
+        //LISTBYUSER
+        [HttpGet]
+        public ActionResult getListaDePrioritarios()
+        {
+            var fileId = Request["file_id"];
+            var response = "";
+            try
+            {
+
+                HttpWebRequest myRequest =
+                    (HttpWebRequest)WebRequest.Create("http://testingcac.azurewebsites.net/api/services/v1/fake/patientpriority/" + fileId);
 
                 myRequest.Method = "GET";
                 myRequest.ContentType = "application/x-www-form-urlencoded";

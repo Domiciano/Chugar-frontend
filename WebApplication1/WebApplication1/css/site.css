@@ -1,4 +1,9 @@
-﻿#page_asignar_datos {
+﻿.filaselector:hover{
+    cursor: pointer
+
+}
+
+#page_asignar_datos {
     visibility:hidden;
 }
 
